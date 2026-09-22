@@ -1,0 +1,1919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LJ University · smart campus</title>
+  <!-- Bootstrap 5 + icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <style>
+    * { font-family: 'Inter', sans-serif; }
+    body { background: #f4f7fc; min-height: 100vh; }
+    
+    /* University Logo Styles - Using Font Awesome */
+    .university-logo {
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(135deg, #1a3a5f, #2c5a8c);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      box-shadow: 0 10px 25px rgba(0,20,50,0.3);
+      border: 3px solid white;
+      transition: all 0.3s ease;
+    }
+    .university-logo i {
+      font-size: 3.5rem;
+      color: white;
+      filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.2));
+    }
+    .university-logo:hover {
+      transform: scale(1.05) rotate(5deg);
+      box-shadow: 0 15px 30px rgba(26,58,95,0.4);
+    }
+    
+    .small-logo {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, #1a3a5f, #2c5a8c);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      border: 2px solid rgba(255,255,255,0.5);
+      transition: all 0.3s ease;
+    }
+    .small-logo i {
+      font-size: 1.8rem;
+      color: white;
+    }
+    .small-logo:hover {
+      transform: scale(1.1) rotate(5deg);
+    }
+    
+    .login-wrapper {
+      min-height: 100vh;
+      background: radial-gradient(circle at 10% 30%, #d4e2f0, #b0c6da);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      animation: fadeIn 1s ease;
+    }
+    .login-card {
+      max-width: 460px;
+      width: 100%;
+      border-radius: 2rem;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.5);
+      box-shadow: 0 30px 50px rgba(0,20,50,0.2);
+      animation: slideInUp 0.8s ease;
+    }
+    .glass-sidebar {
+      background: rgba(18,28,48,0.95);
+      backdrop-filter: blur(8px);
+      color: white;
+      width: 280px;
+      border-radius: 0 2rem 2rem 0;
+      animation: slideInLeft 0.8s ease;
+    }
+    .main-panel {
+      background: #f0f5fa;
+      border-radius: 2rem 0 0 2rem;
+      padding: 1.8rem;
+      flex: 1;
+      overflow-y: auto;
+      max-height: 100vh;
+      animation: slideInRight 0.8s ease;
+    }
+    .nav-item-custom {
+      padding: 0.85rem 1.5rem;
+      margin: 6px 12px;
+      border-radius: 40px;
+      color: rgba(255,255,255,0.8);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .nav-item-custom:hover, .nav-item-custom.active {
+      background: rgba(255,255,255,0.12);
+      color: white;
+      transform: translateX(6px);
+    }
+    .btn-glow {
+      background: #1a3a5f;
+      color: white;
+      border-radius: 40px;
+      padding: 12px 32px;
+      font-weight: 600;
+      border: none;
+      box-shadow: 0 6px 14px rgba(26,58,95,0.3);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-glow:hover { 
+      background: #0f2b44; 
+      transform: translateY(-2px) scale(1.02); 
+      color: white; 
+      box-shadow: 0 8px 20px rgba(26,58,95,0.4);
+    }
+    .btn-glow:active {
+      transform: translateY(0) scale(0.98);
+    }
+    .btn-glow::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 5px;
+      height: 5px;
+      background: rgba(255,255,255,0.5);
+      opacity: 0;
+      border-radius: 100%;
+      transform: scale(1, 1) translate(-50%);
+      transform-origin: 50% 50%;
+    }
+    .btn-glow:focus:not(:active)::after {
+      animation: ripple 1s ease-out;
+    }
+    .btn-outline-glow {
+      border: 1.5px solid #1a3a5f;
+      border-radius: 40px;
+      color: #1a3a5f;
+      font-weight: 600;
+      padding: 10px 28px;
+      background: transparent;
+      transition: all 0.3s ease;
+    }
+    .btn-outline-glow:hover { 
+      background: #1a3a5f; 
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(26,58,95,0.3);
+    }
+    .stat-card {
+      background: white;
+      border-radius: 32px;
+      padding: 1.5rem 1.2rem;
+      box-shadow: 0 8px 18px -8px rgba(0,40,80,0.1);
+      transition: all 0.3s ease;
+      animation: fadeInUp 0.5s ease;
+      animation-fill-mode: both;
+    }
+    .stat-card:nth-child(1) { animation-delay: 0.1s; }
+    .stat-card:nth-child(2) { animation-delay: 0.2s; }
+    .stat-card:nth-child(3) { animation-delay: 0.3s; }
+    .stat-card:nth-child(4) { animation-delay: 0.4s; }
+    
+    .stat-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 30px -10px rgba(0,40,80,0.2);
+    }
+    .stat-icon {
+      width: 56px; height: 56px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      margin-bottom: 12px;
+      transition: all 0.3s ease;
+    }
+    .stat-card:hover .stat-icon {
+      transform: scale(1.1) rotate(8deg);
+    }
+    .dashboard { display: flex; min-height: 100vh; }
+    .carousel-item { 
+      min-height: 300px; 
+      padding: 3rem !important;
+      transition: transform 0.8s ease-in-out;
+    }
+    .carousel-item h4 { 
+      font-size: 2.2rem;
+      animation: fadeInUp 0.8s ease;
+    }
+    .carousel-item p { 
+      font-size: 1.2rem;
+      animation: fadeInUp 1s ease;
+    }
+    .carousel-control-prev-icon, .carousel-control-next-icon {
+      width: 3rem; height: 3rem; background-size: 1.8rem;
+      transition: all 0.3s ease;
+      border-radius: 50%;
+      background-color: rgba(26,58,95,0.5);
+    }
+    .carousel-control-prev-icon:hover, .carousel-control-next-icon:hover {
+      transform: scale(1.2);
+      background-color: #1a3a5f !important;
+    }
+    .table-container {
+      background: white;
+      border-radius: 32px;
+      padding: 1.5rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.02);
+      transition: all 0.3s ease;
+      animation: fadeIn 0.6s ease;
+    }
+    .table-container:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+    }
+    .receipt-paper {
+      background: white;
+      border-radius: 32px;
+      padding: 2rem;
+      border: 2px dashed #1a3a5f;
+      position: relative;
+      animation: zoomIn 0.4s ease;
+    }
+    .receipt-paper::before {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      border: 1px solid #e9ecef;
+      border-radius: 24px;
+      pointer-events: none;
+    }
+    .watermark {
+      position: absolute;
+      opacity: 0.03;
+      font-size: 80px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #1a3a5f;
+      font-weight: bold;
+      z-index: 0;
+    }
+    .certificate-paper {
+      background: white;
+      border-radius: 40px;
+      padding: 2.5rem;
+      border: 1px solid #e9ecf0;
+      box-shadow: 0 25px 40px -20px rgba(0,20,40,0.2);
+      animation: fadeIn 0.6s ease;
+    }
+    .fee-item {
+      border-left: 8px solid #2ecc71;
+      border-radius: 24px;
+      background: white;
+      padding: 1rem 1.8rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 5px 12px rgba(0,0,0,0.02);
+      transition: all 0.3s ease;
+      animation: slideInRight 0.4s ease;
+      animation-fill-mode: both;
+    }
+    .fee-item:nth-child(1) { animation-delay: 0.1s; }
+    .fee-item:nth-child(2) { animation-delay: 0.2s; }
+    .fee-item:nth-child(3) { animation-delay: 0.3s; }
+    .fee-item:nth-child(4) { animation-delay: 0.4s; }
+    
+    .fee-item:hover {
+      transform: translateX(8px) scale(1.01);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    }
+    .fee-item.pending { border-left-color: #f39c12; }
+    .password-requirements {
+      background: #f8f9fa; border-radius: 10px; padding: 10px; margin-top: 10px; font-size: 0.85rem;
+    }
+    .requirement-met { color: #28a745; animation: pulse 0.5s ease; }
+    .requirement-not-met { color: #6c757d; }
+    .auth-toggle {
+      display: flex; gap: 10px; margin-bottom: 20px;
+    }
+    .auth-toggle button {
+      flex: 1; border-radius: 40px; padding: 12px; border: none; background: #f0f0f0; transition: all 0.3s ease;
+    }
+    .auth-toggle button.active { background: #1a3a5f; color: white; animation: pulse 0.5s ease; }
+    .auth-toggle button:hover:not(.active) {
+      background: #e0e0e0;
+      transform: translateY(-2px);
+    }
+    .hidden { display: none; }
+    .is-invalid { border: 2px solid #dc3545 !important; animation: shake 0.5s ease; }
+    .is-valid { border: 2px solid #28a745 !important; }
+    .validation-hint { font-size: 0.8rem; margin-top: 0.25rem; }
+    
+    /* Custom Animations */
+    @keyframes ripple {
+      0% {
+        transform: scale(0, 0);
+        opacity: 1;
+      }
+      20% {
+        transform: scale(25, 25);
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+        transform: scale(40, 40);
+      }
+    }
+    
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+      20%, 40%, 60%, 80% { transform: translateX(5px); }
+    }
+    
+    /* Bootstrap animation overrides */
+    .animate__animated {
+      animation-duration: 0.8s;
+    }
+    
+    /* Hover animations */
+    .hover-pulse:hover {
+      animation: pulse 0.5s ease;
+    }
+    .hover-bounce:hover {
+      animation: bounce 0.5s ease;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ========== LOGIN/REGISTER PAGE ========== -->
+<div id="loginPage" class="login-wrapper">
+  <div class="login-card p-5 animate__animated animate__fadeInDown">
+    <div class="text-center mb-4">
+      <!-- University Logo - Font Awesome Icon -->
+      <div class="university-logo mb-3 animate__animated animate__pulse animate__infinite">
+        <i class="fas fa-university"></i>
+      </div>
+      <h2 class="fw-bold" style="color: #13294b;">LJ University</h2>
+      <p class="text-secondary">smart access · one dashboard</p>
+    </div>
+    
+    <div class="auth-toggle">
+      <button id="loginTabBtn" class="active" onclick="showLoginForm()">Login</button>
+      <button id="registerTabBtn" onclick="showRegisterForm()">Register</button>
+    </div>
+    
+    <!-- LOGIN FORM -->
+    <div id="loginForm" class="auth-form animate__animated animate__fadeIn">
+      <div class="mb-4">
+        <label class="fw-semibold mb-2">Email address</label>
+        <div class="input-group input-group-lg rounded-pill border-0 shadow-sm">
+          <span class="input-group-text bg-white border-0"><i class="fa-regular fa-envelope"></i></span>
+          <input type="email" id="loginEmail" class="form-control border-0" placeholder="name@university.edu" value="admin@uni.edu">
+        </div>
+        <div id="emailValidationHint" class="validation-hint text-muted">
+          <i class="fa-regular fa-circle-info me-1"></i>Email must contain only letters & numbers before @, and a valid domain after.
+        </div>
+      </div>
+      <div class="mb-4">
+        <label class="fw-semibold mb-2">Password</label>
+        <div class="input-group input-group-lg rounded-pill border-0 shadow-sm">
+          <span class="input-group-text bg-white border-0"><i class="fa-solid fa-lock"></i></span>
+          <input type="password" id="loginPassword" class="form-control border-0" placeholder="••••••••" value="Admin@123">
+        </div>
+        <div class="password-requirements animate__animated animate__fadeIn">
+          <div id="reqLength" class="requirement-not-met"><i class="fa-regular fa-circle-xmark me-1"></i>8-15 characters</div>
+          <div id="reqNumbers" class="requirement-not-met"><i class="fa-regular fa-circle-xmark me-1"></i>At least 2 numbers</div>
+          <div id="reqSpecial" class="requirement-not-met"><i class="fa-regular fa-circle-xmark me-1"></i>At least 1 special character</div>
+        </div>
+      </div>
+      <div class="mb-4">
+        <label class="fw-semibold mb-2">I am a</label>
+        <select id="loginRole" class="form-select form-select-lg rounded-pill shadow-sm">
+          <option value="student">🎓 Student</option>
+          <option value="faculty">👩‍🏫 Faculty</option>
+          <option value="admin" selected>⚙️ Administrator</option>
+        </select>
+      </div>
+      <button class="btn btn-glow w-100 py-3 mb-3 hover-pulse" onclick="login()"><i class="fa-solid fa-arrow-right-to-bracket me-2"></i>Access dashboard</button>
+    </div>
+    
+    <!-- REGISTRATION FORM -->
+    <div id="registerForm" class="auth-form hidden animate__animated animate__fadeIn">
+      <div class="mb-3">
+        <label class="fw-semibold mb-2">Full Name *</label>
+        <input type="text" id="regName" class="form-control form-control-lg rounded-pill" placeholder="Enter your full name">
+      </div>
+      <div class="mb-3">
+        <label class="fw-semibold mb-2">Email address *</label>
+        <div class="input-group input-group-lg rounded-pill border-0 shadow-sm">
+          <span class="input-group-text bg-white border-0"><i class="fa-regular fa-envelope"></i></span>
+          <input type="email" id="regEmail" class="form-control border-0" placeholder="name@university.edu">
+        </div>
+        <div id="regEmailHint" class="validation-hint text-muted">
+          <i class="fa-regular fa-circle-info me-1"></i>Email must contain only letters & numbers before @, and a valid domain after.
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="fw-semibold mb-2">Password *</label>
+        <div class="input-group input-group-lg rounded-pill border-0 shadow-sm">
+          <span class="input-group-text bg-white border-0"><i class="fa-solid fa-lock"></i></span>
+          <input type="password" id="regPassword" class="form-control border-0" placeholder="••••••••">
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="fw-semibold mb-2">Confirm Password *</label>
+        <div class="input-group input-group-lg rounded-pill border-0 shadow-sm">
+          <span class="input-group-text bg-white border-0"><i class="fa-solid fa-lock"></i></span>
+          <input type="password" id="regConfirmPassword" class="form-control border-0" placeholder="••••••••">
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="fw-semibold mb-2">Register as</label>
+        <select id="regRole" class="form-select form-select-lg rounded-pill shadow-sm">
+          <option value="student" selected>🎓 Student</option>
+          <option value="faculty">👩‍🏫 Faculty</option>
+        </select>
+      </div>
+      <div class="mb-3" id="studentFields">
+        <div class="row">
+          <div class="col-md-6 mb-2">
+            <label class="fw-semibold mb-2">Student ID</label>
+            <input type="text" id="regStudentId" class="form-control rounded-pill" placeholder="e.g., S001">
+          </div>
+          <div class="col-md-6 mb-2">
+            <label class="fw-semibold mb-2">Course</label>
+            <select id="regCourse" class="form-select rounded-pill">
+              <option value="Computer Science">Computer Science</option>
+              <option value="Engineering">Engineering</option>
+              <option value="Business">Business</option>
+              <option value="Medicine">Medicine</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="mb-3" id="facultyFields" style="display:none;">
+        <div class="row">
+          <div class="col-md-6 mb-2">
+            <label class="fw-semibold mb-2">Faculty ID</label>
+            <input type="text" id="regFacultyId" class="form-control rounded-pill" placeholder="e.g., F001">
+          </div>
+          <div class="col-md-6 mb-2">
+            <label class="fw-semibold mb-2">Department</label>
+            <select id="regDepartment" class="form-select rounded-pill">
+              <option value="Computer Science">Computer Science</option>
+              <option value="Engineering">Engineering</option>
+              <option value="Business">Business</option>
+              <option value="Medicine">Medicine</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-glow w-100 py-3 mb-3 hover-pulse" onclick="register()"><i class="fa-regular fa-user-plus me-2"></i>Create Account</button>
+    </div>
+    
+    <div class="alert alert-info bg-light bg-opacity-75 rounded-4 text-center small p-3 animate__animated animate__pulse animate__infinite animate__slow">
+      <i class="fa-regular fa-circle-check me-1"></i> Demo: admin@uni.edu / Admin@123
+    </div>
+  </div>
+</div>
+
+<!-- ========== DASHBOARDS ========== -->
+<!-- Admin Dashboard -->
+<div id="adminDashboard" class="dashboard" style="display: none;">
+  <div class="glass-sidebar p-3 animate__animated animate__slideInLeft">
+    <div class="text-center my-4">
+      <!-- Small logo in sidebar - Font Awesome Icon -->
+      <div class="small-logo mx-auto mb-3 animate__animated animate__pulse animate__infinite">
+        <i class="fas fa-university"></i>
+      </div>
+      <h5 class="mt-2" id="adminName">Admin</h5>
+      <span class="badge bg-light text-dark rounded-pill px-3">administrator</span>
+    </div>
+    <nav class="mt-4">
+      <a class="nav-item-custom active" onclick="loadSection('admin','dashboard')"><i class="fa-regular fa-chart-bar"></i>Dashboard</a>
+      <a class="nav-item-custom" onclick="loadSection('admin','students')"><i class="fa-regular fa-users"></i>Students</a>
+      <a class="nav-item-custom" onclick="loadSection('admin','faculty')"><i class="fa-regular fa-chalkboard-user"></i>Faculty</a>
+      <a class="nav-item-custom" onclick="loadSection('admin','courses')"><i class="fa-regular fa-book-open"></i>Courses</a>
+      <a class="nav-item-custom" onclick="loadSection('admin','announcements')"><i class="fa-regular fa-bullhorn"></i>Announce</a>
+      <a class="nav-item-custom" onclick="logout()"><i class="fa-regular fa-arrow-right-from-bracket"></i>Logout</a>
+    </nav>
+  </div>
+  <div class="main-panel">
+    <div class="d-flex justify-content-between align-items-center mb-4 animate__animated animate__fadeInDown">
+      <h3 class="fw-bold" id="adminTitle">Admin · dashboard</h3>
+      <div><span class="badge-soft bg-white shadow-sm px-4 py-2"><i class="fa-regular fa-bell me-1"></i> all good</span></div>
+    </div>
+    <div id="adminContent"></div>
+  </div>
+</div>
+
+<!-- Faculty Dashboard -->
+<div id="facultyDashboard" class="dashboard" style="display: none;">
+  <div class="glass-sidebar p-3 animate__animated animate__slideInLeft">
+    <div class="text-center my-4">
+      <!-- Small logo in sidebar - Font Awesome Icon -->
+      <div class="small-logo mx-auto mb-3 animate__animated animate__pulse animate__infinite">
+        <i class="fas fa-university"></i>
+      </div>
+      <h5 class="mt-2" id="facultyName">Dr. Sarah</h5>
+      <span class="badge bg-light text-dark rounded-pill px-3">professor</span>
+    </div>
+    <nav>
+      <a class="nav-item-custom active" onclick="loadSection('faculty','dashboard')"><i class="fa-regular fa-chart-bar"></i>Dashboard</a>
+      <a class="nav-item-custom" onclick="loadSection('faculty','students')"><i class="fa-regular fa-users"></i>My students</a>
+      <a class="nav-item-custom" onclick="loadSection('faculty','courses')"><i class="fa-regular fa-book"></i>Courses</a>
+      <a class="nav-item-custom" onclick="loadSection('faculty','profile')"><i class="fa-regular fa-id-card"></i>Profile</a>
+      <a class="nav-item-custom" onclick="logout()"><i class="fa-regular fa-arrow-right-from-bracket"></i>Logout</a>
+    </nav>
+  </div>
+  <div class="main-panel">
+    <div class="d-flex justify-content-between mb-4 animate__animated animate__fadeInDown">
+      <h3 class="fw-bold" id="facultyTitle">Faculty · dashboard</h3>
+      <span class="badge-soft bg-white shadow-sm px-4 py-2"><i class="fa-regular fa-calendar me-1"></i> fall 2024</span>
+    </div>
+    <div id="facultyContent"></div>
+  </div>
+</div>
+
+<!-- Student Dashboard -->
+<div id="studentDashboard" class="dashboard" style="display: none;">
+  <div class="glass-sidebar p-3 animate__animated animate__slideInLeft">
+    <div class="text-center my-4">
+      <!-- Small logo in sidebar - Font Awesome Icon -->
+      <div class="small-logo mx-auto mb-3 animate__animated animate__pulse animate__infinite">
+        <i class="fas fa-university"></i>
+      </div>
+      <h5 class="mt-2" id="studentName">John Doe</h5>
+      <span class="badge bg-light text-dark rounded-pill px-3">CS · 3rd year</span>
+    </div>
+    <nav>
+      <a class="nav-item-custom active" onclick="loadSection('student','dashboard')"><i class="fa-regular fa-chart-bar"></i>Dashboard</a>
+      <a class="nav-item-custom" onclick="loadSection('student','courses')"><i class="fa-regular fa-book"></i>My courses</a>
+      <a class="nav-item-custom" onclick="loadSection('student','fees')"><i class="fa-regular fa-credit-card"></i>Fee payment</a>
+      <a class="nav-item-custom" onclick="loadSection('student','documents')"><i class="fa-regular fa-file-lines"></i>Documents</a>
+      <a class="nav-item-custom" onclick="loadSection('student','profile')"><i class="fa-regular fa-user"></i>Profile</a>
+      <a class="nav-item-custom" onclick="logout()"><i class="fa-regular fa-arrow-right-from-bracket"></i>Logout</a>
+    </nav>
+  </div>
+  <div class="main-panel">
+    <div class="d-flex justify-content-between mb-4 animate__animated animate__fadeInDown">
+      <h3 class="fw-bold" id="studentTitle">Student · dashboard</h3>
+      <span class="badge-soft bg-white shadow-sm px-4 py-2"><i class="fa-regular fa-star"></i> gpa 3.8</span>
+    </div>
+    <div id="studentContent"></div>
+  </div>
+</div>
+
+<!-- Toast container -->
+<div id="toastContainer" class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 9999;"></div>
+
+<!-- ========== MODALS ========== -->
+<!-- Add Student Modal -->
+<div class="modal fade" id="addStudentModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content rounded-5 animate__animated animate__slideInDown">
+      <div class="modal-header bg-primary text-white rounded-top-5">
+        <h5 class="modal-title"><i class="fa-regular fa-user-plus me-2"></i>Add New Student</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="addStudentForm">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Full Name *</label>
+              <input type="text" id="addStudentName" class="form-control rounded-pill" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Email *</label>
+              <input type="email" id="addStudentEmail" class="form-control rounded-pill" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Course *</label>
+              <select id="addStudentCourse" class="form-select rounded-pill" required>
+                <option value="Computer Science">Computer Science</option>
+                <option value="Engineering">Engineering</option>
+                <option value="Business">Business</option>
+                <option value="Medicine">Medicine</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Year *</label>
+              <select id="addStudentYear" class="form-select rounded-pill" required>
+                <option value="1st">1st Year</option>
+                <option value="2nd">2nd Year</option>
+                <option value="3rd">3rd Year</option>
+                <option value="4th">4th Year</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Date of Birth</label>
+              <input type="date" id="addStudentDOB" class="form-control rounded-pill">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Phone Number</label>
+              <input type="tel" id="addStudentPhone" class="form-control rounded-pill">
+            </div>
+            <div class="col-12">
+              <label class="form-label">Address</label>
+              <textarea id="addStudentAddress" class="form-control rounded-4" rows="2"></textarea>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Guardian Name</label>
+              <input type="text" id="addStudentGuardian" class="form-control rounded-pill">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Initial GPA</label>
+              <input type="number" id="addStudentGPA" class="form-control rounded-pill" step="0.01" min="0" max="4" value="3.0">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary rounded-pill px-4" onclick="saveNewStudent()">Add Student</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Student Modal -->
+<div class="modal fade" id="editStudentModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content rounded-5 animate__animated animate__slideInDown">
+      <div class="modal-header bg-primary text-white rounded-top-5">
+        <h5 class="modal-title"><i class="fa-regular fa-pen-to-square me-2"></i>Edit Student</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="editStudentForm">
+          <input type="hidden" id="editStudentId">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Full Name *</label>
+              <input type="text" id="editStudentName" class="form-control rounded-pill" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Email *</label>
+              <input type="email" id="editStudentEmail" class="form-control rounded-pill" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Course *</label>
+              <select id="editStudentCourse" class="form-select rounded-pill" required>
+                <option value="Computer Science">Computer Science</option>
+                <option value="Engineering">Engineering</option>
+                <option value="Business">Business</option>
+                <option value="Medicine">Medicine</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Year *</label>
+              <select id="editStudentYear" class="form-select rounded-pill" required>
+                <option value="1st">1st Year</option>
+                <option value="2nd">2nd Year</option>
+                <option value="3rd">3rd Year</option>
+                <option value="4th">4th Year</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Date of Birth</label>
+              <input type="date" id="editStudentDOB" class="form-control rounded-pill">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Phone Number</label>
+              <input type="tel" id="editStudentPhone" class="form-control rounded-pill">
+            </div>
+            <div class="col-12">
+              <label class="form-label">Address</label>
+              <textarea id="editStudentAddress" class="form-control rounded-4" rows="2"></textarea>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Guardian Name</label>
+              <input type="text" id="editStudentGuardian" class="form-control rounded-pill">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">GPA</label>
+              <input type="number" id="editStudentGPA" class="form-control rounded-pill" step="0.01" min="0" max="4">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Status</label>
+              <select id="editStudentStatus" class="form-select rounded-pill">
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+                <option value="Graduated">Graduated</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary rounded-pill px-4" onclick="updateStudent()">Update Student</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Faculty Modal -->
+<div class="modal fade" id="addFacultyModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content rounded-5 animate__animated animate__slideInDown">
+      <div class="modal-header bg-success text-white rounded-top-5">
+        <h5 class="modal-title"><i class="fa-regular fa-user-plus me-2"></i>Add Faculty Member</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="addFacultyForm">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Full Name *</label>
+              <input type="text" id="addFacultyName" class="form-control rounded-pill" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Email *</label>
+              <input type="email" id="addFacultyEmail" class="form-control rounded-pill" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Department *</label>
+              <select id="addFacultyDept" class="form-select rounded-pill" required>
+                <option value="Computer Science">Computer Science</option>
+                <option value="Engineering">Engineering</option>
+                <option value="Business">Business</option>
+                <option value="Medicine">Medicine</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Position *</label>
+              <select id="addFacultyPosition" class="form-select rounded-pill" required>
+                <option value="Professor">Professor</option>
+                <option value="Associate Professor">Associate Professor</option>
+                <option value="Assistant Professor">Assistant Professor</option>
+                <option value="Lecturer">Lecturer</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Phone Number</label>
+              <input type="tel" id="addFacultyPhone" class="form-control rounded-pill">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Salary ($)</label>
+              <input type="number" id="addFacultySalary" class="form-control rounded-pill" value="50000">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Specialization</label>
+              <input type="text" id="addFacultySpecialization" class="form-control rounded-pill">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Qualifications</label>
+              <input type="text" id="addFacultyQualification" class="form-control rounded-pill">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Joining Date</label>
+              <input type="date" id="addFacultyJoiningDate" class="form-control rounded-pill">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-success rounded-pill px-4" onclick="saveNewFaculty()">Add Faculty</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Faculty Modal -->
+<div class="modal fade" id="editFacultyModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content rounded-5 animate__animated animate__slideInDown">
+      <div class="modal-header bg-primary text-white rounded-top-5">
+        <h5 class="modal-title"><i class="fa-regular fa-pen-to-square me-2"></i>Edit Faculty</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="editFacultyForm">
+          <input type="hidden" id="editFacultyId">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Full Name *</label>
+              <input type="text" id="editFacultyName" class="form-control rounded-pill" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Email *</label>
+              <input type="email" id="editFacultyEmail" class="form-control rounded-pill" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Department *</label>
+              <select id="editFacultyDept" class="form-select rounded-pill" required>
+                <option value="Computer Science">Computer Science</option>
+                <option value="Engineering">Engineering</option>
+                <option value="Business">Business</option>
+                <option value="Medicine">Medicine</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Position *</label>
+              <select id="editFacultyPosition" class="form-select rounded-pill" required>
+                <option value="Professor">Professor</option>
+                <option value="Associate Professor">Associate Professor</option>
+                <option value="Assistant Professor">Assistant Professor</option>
+                <option value="Lecturer">Lecturer</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Phone Number</label>
+              <input type="tel" id="editFacultyPhone" class="form-control rounded-pill">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Salary ($)</label>
+              <input type="number" id="editFacultySalary" class="form-control rounded-pill">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Specialization</label>
+              <input type="text" id="editFacultySpecialization" class="form-control rounded-pill">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Qualifications</label>
+              <input type="text" id="editFacultyQualification" class="form-control rounded-pill">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Status</label>
+              <select id="editFacultyStatus" class="form-select rounded-pill">
+                <option value="Active">Active</option>
+                <option value="On Leave">On Leave</option>
+                <option value="Retired">Retired</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary rounded-pill px-4" onclick="updateFaculty()">Update Faculty</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Fee Payment Modal -->
+<div class="modal fade" id="feePaymentModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content rounded-5 animate__animated animate__slideInDown">
+      <div class="modal-header bg-success text-white rounded-top-5">
+        <h5 class="modal-title"><i class="fa-regular fa-credit-card me-2"></i>Pay Fees</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label">Select Fee Type</label>
+          <select id="feeType" class="form-select rounded-pill" onchange="calculateTotalFee()">
+            <option value="tuition">Tuition Fee - $5,000</option>
+            <option value="hostel">Hostel Fee - $2,000</option>
+            <option value="library">Library Fee - $300</option>
+            <option value="sports">Sports Fee - $200</option>
+            <option value="exam">Exam Fee - $150</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Amount ($)</label>
+          <input type="number" id="feeAmount" class="form-control rounded-pill" value="5000" readonly>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Payment Method</label>
+          <select id="paymentMethod" class="form-select rounded-pill">
+            <option value="credit_card">Credit Card</option>
+            <option value="debit_card">Debit Card</option>
+            <option value="bank_transfer">Bank Transfer</option>
+            <option value="upi">UPI</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Card/Bank Details *</label>
+          <input type="text" id="paymentDetails" class="form-control rounded-pill" placeholder="Enter 10-digit card/account number" maxlength="10" onkeypress="return onlyNumbers(event)">
+          <div id="paymentDetailsHint" class="validation-hint text-muted">
+            <i class="fa-regular fa-circle-info me-1"></i>Enter exactly 10 digits (numbers only)
+          </div>
+        </div>
+        <div class="alert alert-info rounded-4">
+          <strong>Total Due:</strong> <span id="totalDue">$5,000</span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-success rounded-pill px-4" onclick="processPayment()"><i class="fa-regular fa-credit-card me-2"></i>Pay Now</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bonafide Modal -->
+<div class="modal fade" id="bonafideModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content rounded-5 animate__animated animate__slideInDown">
+      <div class="modal-header bg-info text-white rounded-top-5">
+        <h5 class="modal-title"><i class="fa-regular fa-file-certificate me-2"></i>Bonafide Certificate</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="bonafideForm">
+          <div class="mb-3">
+            <label class="form-label">Purpose of Certificate *</label>
+            <select id="bonafidePurpose" class="form-select rounded-pill" required>
+              <option value="">Select Purpose</option>
+              <option value="Bank Account">Bank Account Opening</option>
+              <option value="Passport">Passport Application</option>
+              <option value="Scholarship">Scholarship Application</option>
+              <option value="Visa">Visa Application</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Additional Details</label>
+            <textarea id="bonafideDetails" class="form-control rounded-4" rows="3"></textarea>
+          </div>
+          <div class="alert alert-warning rounded-4">
+            <i class="fa-regular fa-clock me-2"></i>Processing takes 2-3 working days.
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-info rounded-pill px-4" onclick="generateBonafide()"><i class="fa-regular fa-file-certificate me-2"></i>Generate</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Affidavit Modal -->
+<div class="modal fade" id="affidavitModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content rounded-5 animate__animated animate__slideInDown">
+      <div class="modal-header bg-warning text-white rounded-top-5">
+        <h5 class="modal-title"><i class="fa-regular fa-file-contract me-2"></i>Generate Affidavit</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="affidavitForm">
+          <div class="mb-3">
+            <label class="form-label">Affidavit Type *</label>
+            <select id="affidavitType" class="form-select rounded-pill" required>
+              <option value="">Select Type</option>
+              <option value="Name Correction">Name Correction</option>
+              <option value="Date of Birth">Date of Birth Affidavit</option>
+              <option value="Gap Year">Gap Year Explanation</option>
+              <option value="Income">Income Affidavit</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Details to Include</label>
+            <textarea id="affidavitDetails" class="form-control rounded-4" rows="4"></textarea>
+          </div>
+          <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="notaryRequired">
+            <label class="form-check-label" for="notaryRequired">Notary stamp required</label>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-warning rounded-pill px-4" onclick="generateAffidavit()"><i class="fa-regular fa-file-contract me-2"></i>Generate</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Announcement Modal -->
+<div class="modal fade" id="addAnnouncementModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content rounded-5 animate__animated animate__slideInDown">
+      <div class="modal-header bg-primary text-white rounded-top-5">
+        <h5 class="modal-title"><i class="fa-regular fa-bullhorn me-2"></i>New Announcement</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="addAnnouncementForm">
+          <div class="mb-3">
+            <label class="form-label">Title *</label>
+            <input type="text" id="announcementTitle" class="form-control rounded-pill" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Content *</label>
+            <textarea id="announcementContent" class="form-control rounded-4" rows="4" required></textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Category</label>
+            <select id="announcementCategory" class="form-select rounded-pill">
+              <option value="general">General</option>
+              <option value="academic">Academic</option>
+              <option value="events">Events</option>
+              <option value="emergency">Emergency</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Priority</label>
+            <select id="announcementPriority" class="form-select rounded-pill">
+              <option value="low">Low</option>
+              <option value="medium" selected>Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Valid Until</label>
+            <input type="date" id="announcementValidUntil" class="form-control rounded-pill">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary rounded-pill px-4" onclick="saveAnnouncement()">Post</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  // ========== GLOBAL VARIABLES ==========
+  let registeredUsers = JSON.parse(localStorage.getItem('lj_university_users')) || [
+    { email: 'admin@uni.edu', password: 'Admin@123', name: 'Admin User', role: 'admin' },
+    { email: 'john123@edu.in', password: 'Admin@123', name: 'John Doe', role: 'student', studentId: 'S001', course: 'Computer Science' },
+    { email: 'sarah@uni.edu', password: 'Faculty@123', name: 'Dr. Sarah Johnson', role: 'faculty', facultyId: 'F001', department: 'Computer Science' }
+  ];
+  let currentUser = null;
+  
+  const sampleData = {
+    students: [
+      { id: 'S001', name: 'John Doe', email: 'john123@edu.in', course: 'Computer Science', year: '3rd', gpa: '3.8', status: 'Active', phone: '123-456-7890', address: '123 Main St', guardian: 'Robert Doe', dob: '2002-05-15', fees: [{ type: 'tuition', amount: 5000, status: 'Pending', dueDate: '2024-03-01' }, { type: 'hostel', amount: 2000, status: 'Paid', dueDate: '2024-02-01' }] },
+      { id: 'S002', name: 'Jane Smith', email: 'jane456@.com', course: 'Engineering', year: '2nd', gpa: '3.9', status: 'Active', phone: '098-765-4321', address: '456 Oak Ave', guardian: 'Mary Smith', dob: '2003-08-22', fees: [{ type: 'tuition', amount: 5000, status: 'Pending', dueDate: '2024-03-01' }] }
+    ],
+    faculty: [
+      { id: 'F001', name: 'Dr. Sarah Johnson', email: 'sarah@uni.edu', department: 'Computer Science', position: 'Professor', phone: '111-222-3333', salary: 85000, specialization: 'Artificial Intelligence', qualification: 'PhD', joiningDate: '2020-08-15', status: 'Active' },
+      { id: 'F002', name: 'Prof. Mike Chen', email: 'mike@uni.edu', department: 'Engineering', position: 'Associate Professor', phone: '444-555-6666', salary: 75000, specialization: 'Mechanical Engineering', qualification: 'M.Tech', joiningDate: '2019-01-10', status: 'Active' }
+    ],
+    courses: [
+      { code: 'CS101', name: 'Programming Fundamentals', instructor: 'Dr. Sarah Johnson', credits: 3 },
+      { code: 'CS201', name: 'Data Structures', instructor: 'Dr. Sarah Johnson', credits: 4 },
+      { code: 'ENG101', name: 'Engineering Basics', instructor: 'Prof. Mike Chen', credits: 3 }
+    ],
+    announcements: [
+      { id: 'ANN001', title: 'Semester End Examinations', content: 'The semester end examinations will begin from December 15, 2024.', category: 'academic', priority: 'high', date: '2024-11-20', validUntil: '2024-12-30' },
+      { id: 'ANN002', title: 'Annual Cultural Fest', content: 'TechFest 2024 from December 5-7, 2024.', category: 'events', priority: 'medium', date: '2024-11-18', validUntil: '2024-12-07' },
+      { id: 'ANN003', title: 'Winter Vacation', content: 'LJ University closed from Dec 24 to Jan 1.', category: 'holidays', priority: 'medium', date: '2024-11-15', validUntil: '2025-01-02' }
+    ]
+  };
+
+  // ========== UTILITY FUNCTIONS ==========
+  function showToast(message, type = 'success') {
+    const toastContainer = document.getElementById('toastContainer');
+    const toastId = 'toast-' + Date.now();
+    const bgColor = type === 'success' ? 'bg-success' : type === 'error' ? 'bg-danger' : 'bg-info';
+    const toastHtml = `
+      <div id="${toastId}" class="toast align-items-center text-white ${bgColor} border-0 mb-2 animate__animated animate__slideInRight" role="alert">
+        <div class="d-flex">
+          <div class="toast-body"><i class="fa-regular fa-${type === 'success' ? 'circle-check' : 'circle-exclamation'} me-2"></i>${message}</div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+      </div>
+    `;
+    toastContainer.insertAdjacentHTML('beforeend', toastHtml);
+    const toastElement = document.getElementById(toastId);
+    new bootstrap.Toast(toastElement, { delay: 5000 }).show();
+    setTimeout(() => toastElement.remove(), 6000);
+  }
+
+  function validateEmail(email) {
+    return /^[a-zA-Z0-9]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
+  }
+
+  function validatePassword(password) {
+    const length = password.length >= 8 && password.length <= 15;
+    const numbers = (password.match(/[0-9]/g) || []).length >= 2;
+    const special = (password.match(/[^a-zA-Z0-9]/g) || []).length >= 1;
+    return { valid: length && numbers && special, length, numbers, special };
+  }
+
+  function onlyNumbers(e) {
+    const charCode = e.which ? e.which : e.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) e.preventDefault();
+  }
+
+  // ========== AUTH UI ==========
+  function showLoginForm() {
+    document.getElementById('loginForm').classList.remove('hidden');
+    document.getElementById('registerForm').classList.add('hidden');
+    document.getElementById('loginTabBtn').classList.add('active');
+    document.getElementById('registerTabBtn').classList.remove('active');
+  }
+  function showRegisterForm() {
+    document.getElementById('loginForm').classList.add('hidden');
+    document.getElementById('registerForm').classList.remove('hidden');
+    document.getElementById('loginTabBtn').classList.remove('active');
+    document.getElementById('registerTabBtn').classList.add('active');
+  }
+
+  // ========== REGISTER ==========
+  function register() {
+    const name = document.getElementById('regName').value;
+    const email = document.getElementById('regEmail').value;
+    const password = document.getElementById('regPassword').value;
+    const confirm = document.getElementById('regConfirmPassword').value;
+    const role = document.getElementById('regRole').value;
+    if (!name || !email || !password || !confirm) return showToast('Please fill all required fields', 'error');
+    if (!validateEmail(email)) return showToast('Invalid email format', 'error');
+    if (registeredUsers.some(u => u.email === email)) return showToast('Email already registered', 'error');
+    const pwdValid = validatePassword(password);
+    if (!pwdValid.valid) {
+      let msg = 'Password requirements:\n';
+      if (!pwdValid.length) msg += '- 8-15 characters\n';
+      if (!pwdValid.numbers) msg += '- At least 2 numbers\n';
+      if (!pwdValid.special) msg += '- At least 1 special character\n';
+      return showToast(msg, 'error');
+    }
+    if (password !== confirm) return showToast('Passwords do not match', 'error');
+    
+    const newUser = { name, email, password, role };
+    if (role === 'student') {
+      const studentId = document.getElementById('regStudentId').value || 'S' + (sampleData.students.length + 1).toString().padStart(3, '0');
+      const course = document.getElementById('regCourse').value;
+      newUser.studentId = studentId;
+      newUser.course = course;
+      newUser.year = '1st Year';
+      newUser.fees = [{ type: 'tuition', amount: 5000, status: 'Pending', dueDate: '2024-03-01' }, { type: 'hostel', amount: 2000, status: 'Pending', dueDate: '2024-03-01' }];
+      newUser.documents = [];
+      sampleData.students.push({ id: studentId, name, email, course, year: '1st', gpa: '0.0', status: 'Active', phone: '', address: '', guardian: '', dob: '', fees: newUser.fees });
+    } else {
+      const facultyId = document.getElementById('regFacultyId').value || 'F' + (sampleData.faculty.length + 1).toString().padStart(3, '0');
+      const department = document.getElementById('regDepartment').value;
+      newUser.facultyId = facultyId;
+      newUser.department = department;
+      sampleData.faculty.push({ id: facultyId, name, email, department, position: 'Assistant Professor', phone: '', salary: 50000, specialization: '', qualification: '', joiningDate: new Date().toISOString().split('T')[0], status: 'Active' });
+    }
+    registeredUsers.push(newUser);
+    localStorage.setItem('lj_university_users', JSON.stringify(registeredUsers));
+    showToast('Registration successful! Please login.', 'success');
+    showLoginForm();
+    document.getElementById('regName').value = '';
+    document.getElementById('regEmail').value = '';
+    document.getElementById('regPassword').value = '';
+    document.getElementById('regConfirmPassword').value = '';
+    if (role === 'student') document.getElementById('regStudentId').value = '';
+    else document.getElementById('regFacultyId').value = '';
+  }
+
+  // ========== LOGIN ==========
+  function login() {
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+    const role = document.getElementById('loginRole').value;
+    if (!email || !password) return showToast('Please enter email and password', 'error');
+    if (!validateEmail(email)) return showToast('Invalid email format', 'error');
+    const pwdValid = validatePassword(password);
+    if (!pwdValid.valid) {
+      let msg = 'Password requirements:\n';
+      if (!pwdValid.length) msg += '- 8-15 characters\n';
+      if (!pwdValid.numbers) msg += '- At least 2 numbers\n';
+      if (!pwdValid.special) msg += '- At least 1 special character\n';
+      return showToast(msg, 'error');
+    }
+    const user = registeredUsers.find(u => u.email === email && u.password === password);
+    if (!user) return showToast('Invalid email or password', 'error');
+    if (user.role !== role) return showToast(`You are registered as ${user.role}`, 'error');
+    
+    if (role === 'admin') currentUser = { name: user.name, email, role: 'admin' };
+    else if (role === 'faculty') currentUser = { name: user.name, email, role: 'faculty', department: user.department || 'Computer Science', facultyId: user.facultyId || 'F001' };
+    else currentUser = { name: user.name, email, role: 'student', studentId: user.studentId || 'S001', course: user.course || 'Computer Science', year: user.year || '1st Year', fees: user.fees || JSON.parse(JSON.stringify(sampleData.students[0].fees)), documents: [] };
+    
+    showDashboard(role);
+    showToast(`Welcome to LJ University, ${currentUser.name}!`, 'success');
+  }
+
+  function showDashboard(role) {
+    document.getElementById('loginPage').style.display = 'none';
+    document.querySelectorAll('.dashboard').forEach(d => d.style.display = 'none');
+    document.getElementById(role + 'Dashboard').style.display = 'flex';
+    document.getElementById(role + 'Name').textContent = currentUser.name;
+    document.getElementById(role + 'Title').textContent = currentUser.name + "'s Dashboard";
+    loadSection(role, 'dashboard');
+  }
+
+  function loadSection(role, section) {
+    document.querySelectorAll(`#${role}Dashboard .nav-item-custom`).forEach(el => el.classList.remove('active'));
+    const activeItem = Array.from(document.querySelectorAll(`#${role}Dashboard .nav-item-custom`)).find(el => el.getAttribute('onclick')?.includes(`'${role}', '${section}'`));
+    if (activeItem) activeItem.classList.add('active');
+    document.getElementById(role + 'Content').innerHTML = getContent(role, section);
+    setTimeout(() => document.querySelectorAll('.carousel').forEach(c => new bootstrap.Carousel(c, { interval: 5000 })), 100);
+  }
+
+  function getContent(role, section) {
+    if (section === 'dashboard') return getDashboardContent(role);
+    if (section === 'students') return getStudentsContent(role);
+    if (section === 'faculty') return getFacultyContent(role);
+    if (section === 'courses') return getCoursesContent(role);
+    if (section === 'profile') return getProfileContent(role);
+    if (section === 'fees') return getFeesContent();
+    if (section === 'documents') return getDocumentsContent();
+    if (section === 'announcements') return getAnnouncementsContent();
+    return '';
+  }
+
+  // ========== DASHBOARD CONTENT GENERATORS ==========
+  function getDashboardContent(role) {
+    if (role === 'admin') {
+      return `
+        <h4 class="mb-4 fw-semibold"><i class="fa-regular fa-chart-pie me-2"></i>Overview</h4>
+        <div id="adminCarousel" class="carousel slide carousel-fade mb-5" data-bs-ride="carousel">
+          <div class="carousel-indicators">${sampleData.announcements.map((_, i) => `<button type="button" data-bs-target="#adminCarousel" data-bs-slide-to="${i}" class="${i===0?'active':''}"></button>`).join('')}</div>
+          <div class="carousel-inner rounded-5 shadow">${sampleData.announcements.map((a, i) => `
+            <div class="carousel-item ${i===0?'active':''} p-5 bg-white">
+              <span class="badge bg-primary mb-3" style="font-size:1rem;">${a.category}</span>
+              <h4 class="mb-3">${a.title}</h4>
+              <p class="mb-3" style="font-size:1.2rem;">${a.content}</p>
+              <small class="text-muted"><i class="fa-regular fa-calendar me-1"></i>${a.date}</small>
+            </div>`).join('')}
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#adminCarousel" data-bs-slide="prev"><span class="carousel-control-prev-icon bg-primary rounded-circle p-3" style="width:3rem;height:3rem;"></span></button>
+          <button class="carousel-control-next" type="button" data-bs-target="#adminCarousel" data-bs-slide="next"><span class="carousel-control-next-icon bg-primary rounded-circle p-3" style="width:3rem;height:3rem;"></span></button>
+        </div>
+        <div class="row g-4">${[
+          { icon: 'users', bg: '#d0e0ff', color: '#1a3a5f', count: sampleData.students.length, label: 'Total Students' },
+          { icon: 'chalkboard-user', bg: '#ddf4e0', color: '#1f7b4d', count: sampleData.faculty.length, label: 'Faculty Members' },
+          { icon: 'book-open', bg: '#fff1d6', color: '#b45b0f', count: sampleData.courses.length, label: 'Active Courses' }
+        ].map(stat => `
+          <div class="col-md-4">
+            <div class="stat-card">
+              <div class="stat-icon" style="background:${stat.bg};color:${stat.color}"><i class="fa-regular fa-${stat.icon}"></i></div>
+              <h2>${stat.count}</h2>
+              <p class="text-muted">${stat.label}</p>
+            </div>
+          </div>`).join('')}
+        </div>
+        <div class="row mt-4">
+          <div class="col-md-6">
+            <div class="table-container"><h5><i class="fa-regular fa-clock me-2"></i>Recent Students</h5>${sampleData.students.slice(0,3).map(s => `<div class="d-flex justify-content-between align-items-center p-3 border-bottom"><div><strong>${s.name}</strong><br><small>${s.id}</small></div><span class="badge bg-light text-dark">${s.course}</span></div>`).join('')}</div>
+          </div>
+          <div class="col-md-6">
+            <div class="table-container"><h5><i class="fa-regular fa-circle-exclamation me-2"></i>Pending Fees</h5>${sampleData.students.filter(s => s.fees.some(f => f.status === 'Pending')).slice(0,3).map(s => `<div class="d-flex justify-content-between align-items-center p-3 border-bottom"><div><strong>${s.name}</strong><br><small>${s.id}</small></div><span class="badge bg-warning">Pending</span></div>`).join('')}</div>
+          </div>
+        </div>
+      `;
+    } else if (role === 'faculty') {
+      return `
+        <h4 class="mb-4"><i class="fa-regular fa-chart-line me-2"></i>My Dashboard</h4>
+        <div id="facultyCarousel" class="carousel slide carousel-fade mb-5" data-bs-ride="carousel">
+          <div class="carousel-indicators">${sampleData.announcements.map((_, i) => `<button type="button" data-bs-target="#facultyCarousel" data-bs-slide-to="${i}" class="${i===0?'active':''}"></button>`).join('')}</div>
+          <div class="carousel-inner rounded-5 shadow">${sampleData.announcements.map((a, i) => `
+            <div class="carousel-item ${i===0?'active':''} p-5 bg-white">
+              <span class="badge bg-primary mb-3" style="font-size:1rem;">${a.category}</span>
+              <h4 class="mb-3">${a.title}</h4>
+              <p class="mb-3" style="font-size:1.2rem;">${a.content}</p>
+              <small class="text-muted"><i class="fa-regular fa-calendar me-1"></i>${a.date}</small>
+            </div>`).join('')}
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#facultyCarousel" data-bs-slide="prev"><span class="carousel-control-prev-icon bg-primary rounded-circle p-3" style="width:3rem;height:3rem;"></span></button>
+          <button class="carousel-control-next" type="button" data-bs-target="#facultyCarousel" data-bs-slide="next"><span class="carousel-control-next-icon bg-primary rounded-circle p-3" style="width:3rem;height:3rem;"></span></button>
+        </div>
+        <div class="row g-4 mb-4">${[
+          { icon: 'book', bg: '#e8f5e9', color: '#4caf50', value: 3, label: 'Courses Teaching' },
+          { icon: 'users', bg: '#e3f2fd', color: '#2196f3', value: 45, label: 'Total Students' },
+          { icon: 'calendar', bg: '#fff3e0', color: '#ff9800', value: 8, label: 'Classes This Week' }
+        ].map(stat => `
+          <div class="col-md-4">
+            <div class="stat-card"><div class="stat-icon" style="background:${stat.bg};color:${stat.color}"><i class="fa-regular fa-${stat.icon}"></i></div><h3>${stat.value}</h3><p>${stat.label}</p></div>
+          </div>`).join('')}
+        </div>
+        <div class="table-container"><h5>My Courses</h5><table class="table table-hover"><thead><tr><th>Code</th><th>Course Name</th><th>Credits</th><th>Schedule</th></tr></thead><tbody><tr><td>CS101</td><td>Programming Fundamentals</td><td>3</td><td>Mon/Wed 10 AM</td></tr><tr><td>CS201</td><td>Data Structures</td><td>4</td><td>Tue/Thu 2 PM</td></tr><tr><td>CS301</td><td>Algorithms</td><td>4</td><td>Fri 9 AM</td></tr></tbody></table></div>
+      `;
+    } else {
+      return `
+        <h4 class="mb-4"><i class="fa-regular fa-gauge-high me-2"></i>Student Dashboard</h4>
+        <div id="studentCarousel" class="carousel slide carousel-fade mb-5" data-bs-ride="carousel">
+          <div class="carousel-indicators">${sampleData.announcements.map((_, i) => `<button type="button" data-bs-target="#studentCarousel" data-bs-slide-to="${i}" class="${i===0?'active':''}"></button>`).join('')}</div>
+          <div class="carousel-inner rounded-5 shadow">${sampleData.announcements.map((a, i) => `
+            <div class="carousel-item ${i===0?'active':''} p-5 bg-white">
+              <span class="badge bg-primary mb-3" style="font-size:1rem;">${a.category}</span>
+              <h4 class="mb-3">${a.title}</h4>
+              <p class="mb-3" style="font-size:1.2rem;">${a.content}</p>
+              <small class="text-muted"><i class="fa-regular fa-calendar me-1"></i>${a.date}</small>
+            </div>`).join('')}
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#studentCarousel" data-bs-slide="prev"><span class="carousel-control-prev-icon bg-primary rounded-circle p-3" style="width:3rem;height:3rem;"></span></button>
+          <button class="carousel-control-next" type="button" data-bs-target="#studentCarousel" data-bs-slide="next"><span class="carousel-control-next-icon bg-primary rounded-circle p-3" style="width:3rem;height:3rem;"></span></button>
+        </div>
+        <div class="row g-4 mb-4">${[
+          { icon: 'book', bg: '#e8f5e9', color: '#4caf50', value: 5, label: 'Current Courses' },
+          { icon: 'chart-line', bg: '#e3f2fd', color: '#2196f3', value: '3.8', label: 'Current GPA' },
+          { icon: 'calendar-check', bg: '#fff3e0', color: '#ff9800', value: '95%', label: 'Attendance' },
+          { icon: 'credit-card', bg: '#f3e5f5', color: '#9c27b0', value: 120, label: 'Credits Earned' }
+        ].map(stat => `
+          <div class="col-md-3">
+            <div class="stat-card text-center"><div class="stat-icon mx-auto" style="background:${stat.bg};color:${stat.color}"><i class="fa-regular fa-${stat.icon}"></i></div><h3>${stat.value}</h3><p>${stat.label}</p></div>
+          </div>`).join('')}
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="table-container"><h5>My Schedule</h5><div class="list-group list-group-flush"><div class="list-group-item d-flex justify-content-between"><span><strong>CS101</strong> Programming</span><span class="badge bg-primary">Mon 10 AM</span></div><div class="list-group-item d-flex justify-content-between"><span><strong>CS201</strong> Data Structures</span><span class="badge bg-success">Tue 2 PM</span></div><div class="list-group-item d-flex justify-content-between"><span><strong>MA101</strong> Calculus</span><span class="badge bg-info">Wed 11 AM</span></div></div></div>
+          </div>
+          <div class="col-md-6">
+            <div class="table-container"><h5>Quick Actions</h5><div class="d-grid gap-2"><button class="btn btn-glow" onclick="openFeePayment()"><i class="fa-regular fa-credit-card me-2"></i>Pay Fees</button><button class="btn btn-outline-glow" onclick="openBonafide()"><i class="fa-regular fa-file-certificate me-2"></i>Get Bonafide</button><button class="btn btn-outline-glow" onclick="openAffidavit()"><i class="fa-regular fa-file-contract me-2"></i>Generate Affidavit</button></div></div>
+          </div>
+        </div>
+      `;
+    }
+  }
+
+  function getStudentsContent(role) {
+    const isAdmin = role === 'admin';
+    return `
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4><i class="fa-regular fa-users me-2"></i>${isAdmin ? 'Student Management' : 'My Students'}</h4>
+        ${isAdmin ? '<button class="btn btn-glow" onclick="addStudent()"><i class="fa-regular fa-plus me-2"></i>Add Student</button>' : ''}
+      </div>
+      <div class="table-container">
+        <table class="table table-hover">
+          <thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Course</th><th>Year</th><th>GPA</th><th>Actions</th></tr></thead>
+          <tbody>${sampleData.students.map(s => `
+            <tr>
+              <td>${s.id}</td><td>${s.name}</td><td>${s.email}</td><td>${s.course}</td><td>${s.year}</td><td>${s.gpa}</td>
+              <td>
+                <button class="btn btn-sm btn-outline-primary rounded-pill" onclick="viewStudent('${s.id}')"><i class="fa-regular fa-eye"></i></button>
+                ${isAdmin ? `
+                  <button class="btn btn-sm btn-outline-warning rounded-pill mx-1" onclick="editStudent('${s.id}')"><i class="fa-regular fa-pen-to-square"></i></button>
+                  <button class="btn btn-sm btn-outline-danger rounded-pill" onclick="deleteStudent('${s.id}')"><i class="fa-regular fa-trash"></i></button>
+                ` : ''}
+              </td>
+            </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+    `;
+  }
+
+  function getFacultyContent(role) {
+    const isAdmin = role === 'admin';
+    return `
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4><i class="fa-regular fa-chalkboard-user me-2"></i>${isAdmin ? 'Faculty Management' : 'Faculty Directory'}</h4>
+        ${isAdmin ? '<button class="btn btn-glow" onclick="addFaculty()"><i class="fa-regular fa-plus me-2"></i>Add Faculty</button>' : ''}
+      </div>
+      <div class="table-container">
+        <table class="table table-hover">
+          <thead><tr>${isAdmin ? '<th>ID</th>' : ''}<th>Name</th><th>Department</th><th>Position</th>${isAdmin ? '<th>Status</th><th>Salary</th>' : ''}<th>Email</th>${isAdmin ? '<th>Actions</th>' : ''}</tr></thead>
+          <tbody>${sampleData.faculty.map(f => `
+            <tr>
+              ${isAdmin ? `<td>${f.id}</td>` : ''}
+              <td>${f.name}</td><td>${f.department}</td><td>${f.position}</td>
+              ${isAdmin ? `<td><span class="badge bg-success">${f.status}</span></td><td>$${f.salary}</td>` : ''}
+              <td>${f.email}</td>
+              ${isAdmin ? `
+                <td>
+                  <button class="btn btn-sm btn-outline-primary rounded-pill" onclick="viewFaculty('${f.id}')"><i class="fa-regular fa-eye"></i></button>
+                  <button class="btn btn-sm btn-outline-warning rounded-pill mx-1" onclick="editFaculty('${f.id}')"><i class="fa-regular fa-pen-to-square"></i></button>
+                  <button class="btn btn-sm btn-outline-danger rounded-pill" onclick="deleteFaculty('${f.id}')"><i class="fa-regular fa-trash"></i></button>
+                </td>
+              ` : ''}
+            </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+    `;
+  }
+
+  function getCoursesContent() {
+    return `
+      <h4 class="mb-4"><i class="fa-regular fa-book-open me-2"></i>Course Catalog</h4>
+      <div class="table-container">
+        <table class="table table-hover">
+          <thead><tr><th>Code</th><th>Course Name</th><th>Instructor</th><th>Credits</th></tr></thead>
+          <tbody>${sampleData.courses.map(c => `<tr><td>${c.code}</td><td>${c.name}</td><td>${c.instructor}</td><td>${c.credits}</td></tr>`).join('')}</tbody>
+        </table>
+      </div>
+    `;
+  }
+
+  function getProfileContent() {
+    return `
+      <div class="certificate-paper">
+        <h4 class="mb-4"><i class="fa-regular fa-id-card me-2"></i>Profile Information</h4>
+        <div class="row">
+          <div class="col-md-3 text-center"><div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center" style="width:100px;height:100px;font-size:40px;">${currentUser.name.charAt(0)}</div></div>
+          <div class="col-md-9"><table class="table"><tr><th>Name</th><td>${currentUser.name}</td></tr><tr><th>Email</th><td>${currentUser.email}</td></tr>${currentUser.role === 'student' ? `<tr><th>Student ID</th><td>${currentUser.studentId}</td></tr><tr><th>Course</th><td>${currentUser.course}</td></tr><tr><th>Year</th><td>${currentUser.year}</td></tr>` : ''}${currentUser.role === 'faculty' ? `<tr><th>Department</th><td>${currentUser.department}</td></tr>` : ''}</table></div>
+        </div>
+      </div>
+    `;
+  }
+
+  function getFeesContent() {
+    const totalDue = currentUser.fees?.filter(f => f.status === 'Pending').reduce((s, f) => s + f.amount, 0) || 0;
+    const totalPaid = currentUser.fees?.filter(f => f.status === 'Paid').reduce((s, f) => s + f.amount, 0) || 0;
+    return `
+      <h4 class="mb-4"><i class="fa-regular fa-credit-card me-2"></i>Fee Management</h4>
+      <div class="row g-4 mb-4">${[
+        { icon: 'circle-check', bg: '#e8f5e9', color: '#4caf50', value: totalPaid, label: 'Total Paid', prefix: '$' },
+        { icon: 'clock', bg: '#fff3e0', color: '#ff9800', value: totalDue, label: 'Total Due', prefix: '$' },
+        { icon: 'triangle-exclamation', bg: '#ffebee', color: '#f44336', value: currentUser.fees?.filter(f => f.status === 'Pending').length || 0, label: 'Pending Fees' }
+      ].map(stat => `
+        <div class="col-md-4"><div class="stat-card"><div class="stat-icon" style="background:${stat.bg};color:${stat.color}"><i class="fa-regular fa-${stat.icon}"></i></div><h3>${stat.prefix || ''}${stat.value}</h3><p>${stat.label}</p></div></div>`).join('')}
+      </div>
+      <div class="table-container">
+        <div class="d-flex justify-content-between align-items-center mb-3"><h5>Fee Details</h5><button class="btn btn-glow" onclick="openFeePayment()"><i class="fa-regular fa-credit-card me-2"></i>Pay Now</button></div>
+        <div class="row">${currentUser.fees?.map(f => `
+          <div class="col-md-6 mb-3"><div class="fee-item ${f.status === 'Pending' ? 'pending' : f.status === 'Overdue' ? 'overdue' : ''}"><div class="d-flex justify-content-between"><div><h6 class="mb-1">${f.type.charAt(0).toUpperCase() + f.type.slice(1)} Fee</h6><small class="text-muted">Due: ${f.dueDate}</small></div><div class="text-end"><h5 class="mb-1">$${f.amount}</h5><span class="badge bg-${f.status === 'Paid' ? 'success' : 'warning'}">${f.status}</span></div></div></div></div>
+        `).join('')}</div>
+      </div>
+    `;
+  }
+
+  function getDocumentsContent() {
+    return `
+      <h4 class="mb-4"><i class="fa-regular fa-file-lines me-2"></i>Documents Center</h4>
+      <div class="row g-4 mb-4">${[
+        { icon: 'file-certificate', bg: '#e3f2fd', color: '#2196f3', count: currentUser.documents?.filter(d => d.type === 'Bonafide').length || 0, label: 'Bonafide Certificates' },
+        { icon: 'file-contract', bg: '#fff3e0', color: '#ff9800', count: currentUser.documents?.filter(d => d.type === 'Affidavit').length || 0, label: 'Affidavits' },
+        { icon: 'file-invoice', bg: '#e8f5e9', color: '#4caf50', count: currentUser.payments?.length || 0, label: 'Fee Receipts' }
+      ].map(stat => `
+        <div class="col-md-4"><div class="stat-card text-center"><div class="stat-icon mx-auto" style="background:${stat.bg};color:${stat.color}"><i class="fa-regular fa-${stat.icon}"></i></div><h3>${stat.count}</h3><p>${stat.label}</p></div></div>`).join('')}
+      </div>
+      <div class="row g-4">
+        <div class="col-md-6"><div class="card-modern p-4 text-center"><i class="fa-regular fa-file-certificate fa-3x text-info mb-3"></i><h5>Bonafide Certificate</h5><p class="text-muted">For bank, passport, scholarship</p><button class="btn btn-outline-glow" onclick="openBonafide()"><i class="fa-regular fa-plus me-2"></i>Generate</button></div></div>
+        <div class="col-md-6"><div class="card-modern p-4 text-center"><i class="fa-regular fa-file-contract fa-3x text-warning mb-3"></i><h5>Affidavit</h5><p class="text-muted">Name correction, gap year, etc.</p><button class="btn btn-outline-glow" onclick="openAffidavit()"><i class="fa-regular fa-plus me-2"></i>Generate</button></div></div>
+      </div>
+      ${currentUser.documents && currentUser.documents.length ? `
+        <div class="table-container mt-4"><h5>My Documents</h5><table class="table table-hover"><thead><tr><th>Document</th><th>Type</th><th>Generated On</th><th>Status</th><th>Actions</th></tr></thead><tbody>${currentUser.documents.map(doc => `<tr><td>${doc.name}</td><td><span class="badge bg-${doc.type === 'Bonafide' ? 'info' : 'warning'}">${doc.type}</span></td><td>${doc.date}</td><td><span class="badge bg-success">${doc.status}</span></td><td><button class="btn btn-sm btn-outline-primary rounded-pill" onclick="viewDocument('${doc.id}')"><i class="fa-regular fa-eye"></i></button><button class="btn btn-sm btn-outline-secondary rounded-pill" onclick="printDocument('${doc.id}')"><i class="fa-regular fa-print"></i></button></td></tr>`).join('')}</tbody></table></div>
+      ` : ''}
+    `;
+  }
+
+  function getAnnouncementsContent() {
+    return `
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4><i class="fa-regular fa-bullhorn me-2"></i>Announcements</h4>
+        <button class="btn btn-glow" onclick="addAnnouncement()"><i class="fa-regular fa-plus me-2"></i>New</button>
+      </div>
+      <div class="table-container">
+        <table class="table table-hover">
+          <thead><tr><th>ID</th><th>Title</th><th>Category</th><th>Priority</th><th>Date</th><th>Actions</th></tr></thead>
+          <tbody>${sampleData.announcements.map(a => `
+            <tr>
+              <td>${a.id}</td><td>${a.title}</td><td><span class="badge bg-info">${a.category}</span></td><td><span class="badge bg-${a.priority === 'high' ? 'danger' : a.priority === 'medium' ? 'warning' : 'secondary'}">${a.priority}</span></td><td>${a.date}</td>
+              <td>
+                <button class="btn btn-sm btn-outline-primary rounded-pill" onclick="viewAnnouncement('${a.id}')"><i class="fa-regular fa-eye"></i></button>
+                <button class="btn btn-sm btn-outline-warning rounded-pill mx-1" onclick="editAnnouncement('${a.id}')"><i class="fa-regular fa-pen-to-square"></i></button>
+                <button class="btn btn-sm btn-outline-danger rounded-pill" onclick="deleteAnnouncement('${a.id}')"><i class="fa-regular fa-trash"></i></button>
+              </td>
+            </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+    `;
+  }
+
+  // ========== STUDENT CRUD ==========
+  function addStudent() {
+    document.getElementById('addStudentForm').reset();
+    document.getElementById('addStudentGPA').value = '3.0';
+    new bootstrap.Modal(document.getElementById('addStudentModal')).show();
+  }
+  function saveNewStudent() {
+    const studentId = 'S' + (sampleData.students.length + 1).toString().padStart(3, '0');
+    const newStudent = {
+      id: studentId,
+      name: document.getElementById('addStudentName').value,
+      email: document.getElementById('addStudentEmail').value,
+      course: document.getElementById('addStudentCourse').value,
+      year: document.getElementById('addStudentYear').value,
+      gpa: document.getElementById('addStudentGPA').value,
+      dob: document.getElementById('addStudentDOB').value || null,
+      phone: document.getElementById('addStudentPhone').value || '',
+      address: document.getElementById('addStudentAddress').value || '',
+      guardian: document.getElementById('addStudentGuardian').value || '',
+      status: 'Active',
+      fees: [{ type: 'tuition', amount: 5000, status: 'Pending', dueDate: '2024-03-01' }, { type: 'hostel', amount: 2000, status: 'Pending', dueDate: '2024-03-01' }]
+    };
+    sampleData.students.push(newStudent);
+    bootstrap.Modal.getInstance(document.getElementById('addStudentModal')).hide();
+    loadSection('admin', 'students');
+    showToast(`Student ${newStudent.name} added`, 'success');
+  }
+  function editStudent(id) {
+    const s = sampleData.students.find(s => s.id === id);
+    if (!s) return;
+    document.getElementById('editStudentId').value = s.id;
+    document.getElementById('editStudentName').value = s.name;
+    document.getElementById('editStudentEmail').value = s.email;
+    document.getElementById('editStudentCourse').value = s.course;
+    document.getElementById('editStudentYear').value = s.year;
+    document.getElementById('editStudentDOB').value = s.dob || '';
+    document.getElementById('editStudentPhone').value = s.phone || '';
+    document.getElementById('editStudentAddress').value = s.address || '';
+    document.getElementById('editStudentGuardian').value = s.guardian || '';
+    document.getElementById('editStudentGPA').value = s.gpa || '';
+    document.getElementById('editStudentStatus').value = s.status || 'Active';
+    new bootstrap.Modal(document.getElementById('editStudentModal')).show();
+  }
+  function updateStudent() {
+    const id = document.getElementById('editStudentId').value;
+    const idx = sampleData.students.findIndex(s => s.id === id);
+    if (idx !== -1) {
+      sampleData.students[idx] = { ...sampleData.students[idx],
+        name: document.getElementById('editStudentName').value,
+        email: document.getElementById('editStudentEmail').value,
+        course: document.getElementById('editStudentCourse').value,
+        year: document.getElementById('editStudentYear').value,
+        dob: document.getElementById('editStudentDOB').value,
+        phone: document.getElementById('editStudentPhone').value,
+        address: document.getElementById('editStudentAddress').value,
+        guardian: document.getElementById('editStudentGuardian').value,
+        gpa: document.getElementById('editStudentGPA').value,
+        status: document.getElementById('editStudentStatus').value
+      };
+    }
+    bootstrap.Modal.getInstance(document.getElementById('editStudentModal')).hide();
+    loadSection('admin', 'students');
+    showToast('Student updated', 'success');
+  }
+  function deleteStudent(id) {
+    if (confirm('Delete this student?')) {
+      const idx = sampleData.students.findIndex(s => s.id === id);
+      if (idx !== -1) sampleData.students.splice(idx, 1);
+      loadSection('admin', 'students');
+      showToast('Student deleted', 'success');
+    }
+  }
+  function viewStudent(id) {
+    const s = sampleData.students.find(s => s.id === id);
+    if (!s) return;
+    const content = `
+      <div class="certificate-paper">
+        <div class="d-flex justify-content-between align-items-center mb-4"><h4>Student Details: ${s.name}</h4><button class="btn btn-outline-glow" onclick="loadSection('admin', 'students')"><i class="fa-regular fa-arrow-left me-2"></i>Back</button></div>
+        <div class="row"><div class="col-md-4 text-center"><div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center" style="width:120px;height:120px;font-size:48px;">${s.name.charAt(0)}</div><h5 class="mt-3">${s.name}</h5><span class="badge bg-success">${s.status}</span></div><div class="col-md-8"><table class="table"><tr><th>Student ID</th><td>${s.id}</td></tr><tr><th>Email</th><td>${s.email}</td></tr><tr><th>Course</th><td>${s.course}</td></tr><tr><th>Year</th><td>${s.year}</td></tr><tr><th>GPA</th><td>${s.gpa}</td></tr><tr><th>Phone</th><td>${s.phone || 'N/A'}</td></tr><tr><th>Date of Birth</th><td>${s.dob || 'N/A'}</td></tr><tr><th>Address</th><td>${s.address || 'N/A'}</td></tr><tr><th>Guardian</th><td>${s.guardian || 'N/A'}</td></tr></table></div></div>
+        <div class="mt-4"><h5>Fee Status</h5><div class="row">${s.fees.map(f => `<div class="col-md-6 mb-3"><div class="fee-item ${f.status === 'Pending' ? 'pending' : ''}"><div class="d-flex justify-content-between"><span><strong>${f.type}</strong></span><span>$${f.amount}</span></div><div class="d-flex justify-content-between mt-2"><small>Due: ${f.dueDate}</small><span class="badge bg-${f.status === 'Paid' ? 'success' : 'warning'}">${f.status}</span></div></div></div>`).join('')}</div></div>
+      </div>
+    `;
+    document.getElementById('adminContent').innerHTML = content;
+  }
+
+  // ========== FACULTY CRUD ==========
+  function addFaculty() {
+    document.getElementById('addFacultyForm').reset();
+    document.getElementById('addFacultySalary').value = '50000';
+    document.getElementById('addFacultyJoiningDate').value = new Date().toISOString().split('T')[0];
+    new bootstrap.Modal(document.getElementById('addFacultyModal')).show();
+  }
+  function saveNewFaculty() {
+    const facultyId = 'F' + (sampleData.faculty.length + 1).toString().padStart(3, '0');
+    const newFaculty = {
+      id: facultyId,
+      name: document.getElementById('addFacultyName').value,
+      email: document.getElementById('addFacultyEmail').value,
+      department: document.getElementById('addFacultyDept').value,
+      position: document.getElementById('addFacultyPosition').value,
+      phone: document.getElementById('addFacultyPhone').value || '',
+      salary: parseInt(document.getElementById('addFacultySalary').value) || 50000,
+      specialization: document.getElementById('addFacultySpecialization').value || '',
+      qualification: document.getElementById('addFacultyQualification').value || '',
+      joiningDate: document.getElementById('addFacultyJoiningDate').value || '',
+      status: 'Active'
+    };
+    sampleData.faculty.push(newFaculty);
+    bootstrap.Modal.getInstance(document.getElementById('addFacultyModal')).hide();
+    loadSection('admin', 'faculty');
+    showToast(`Faculty ${newFaculty.name} added`, 'success');
+  }
+  function editFaculty(id) {
+    const f = sampleData.faculty.find(f => f.id === id);
+    if (!f) return;
+    document.getElementById('editFacultyId').value = f.id;
+    document.getElementById('editFacultyName').value = f.name;
+    document.getElementById('editFacultyEmail').value = f.email;
+    document.getElementById('editFacultyDept').value = f.department;
+    document.getElementById('editFacultyPosition').value = f.position;
+    document.getElementById('editFacultyPhone').value = f.phone || '';
+    document.getElementById('editFacultySalary').value = f.salary || '';
+    document.getElementById('editFacultySpecialization').value = f.specialization || '';
+    document.getElementById('editFacultyQualification').value = f.qualification || '';
+    document.getElementById('editFacultyStatus').value = f.status || 'Active';
+    new bootstrap.Modal(document.getElementById('editFacultyModal')).show();
+  }
+  function updateFaculty() {
+    const id = document.getElementById('editFacultyId').value;
+    const idx = sampleData.faculty.findIndex(f => f.id === id);
+    if (idx !== -1) {
+      sampleData.faculty[idx] = { ...sampleData.faculty[idx],
+        name: document.getElementById('editFacultyName').value,
+        email: document.getElementById('editFacultyEmail').value,
+        department: document.getElementById('editFacultyDept').value,
+        position: document.getElementById('editFacultyPosition').value,
+        phone: document.getElementById('editFacultyPhone').value,
+        salary: parseInt(document.getElementById('editFacultySalary').value) || 0,
+        specialization: document.getElementById('editFacultySpecialization').value,
+        qualification: document.getElementById('editFacultyQualification').value,
+        status: document.getElementById('editFacultyStatus').value
+      };
+    }
+    bootstrap.Modal.getInstance(document.getElementById('editFacultyModal')).hide();
+    loadSection('admin', 'faculty');
+    showToast('Faculty updated', 'success');
+  }
+  function deleteFaculty(id) {
+    if (confirm('Delete this faculty member?')) {
+      const idx = sampleData.faculty.findIndex(f => f.id === id);
+      if (idx !== -1) sampleData.faculty.splice(idx, 1);
+      loadSection('admin', 'faculty');
+      showToast('Faculty deleted', 'success');
+    }
+  }
+  function viewFaculty(id) {
+    const f = sampleData.faculty.find(f => f.id === id);
+    if (!f) return;
+    const content = `
+      <div class="certificate-paper">
+        <div class="d-flex justify-content-between align-items-center mb-4"><h4>Faculty Details: ${f.name}</h4><button class="btn btn-outline-glow" onclick="loadSection('admin', 'faculty')"><i class="fa-regular fa-arrow-left me-2"></i>Back</button></div>
+        <div class="row"><div class="col-md-4 text-center"><div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center" style="width:120px;height:120px;font-size:48px;">${f.name.charAt(0)}</div><h5 class="mt-3">${f.name}</h5><span class="badge bg-success">${f.status}</span></div><div class="col-md-8"><table class="table"><tr><th>Faculty ID</th><td>${f.id}</td></tr><tr><th>Email</th><td>${f.email}</td></tr><tr><th>Department</th><td>${f.department}</td></tr><tr><th>Position</th><td>${f.position}</td></tr><tr><th>Salary</th><td>$${f.salary}</td></tr><tr><th>Phone</th><td>${f.phone || 'N/A'}</td></tr><tr><th>Specialization</th><td>${f.specialization || 'N/A'}</td></tr><tr><th>Qualifications</th><td>${f.qualification || 'N/A'}</td></tr><tr><th>Joining Date</th><td>${f.joiningDate || 'N/A'}</td></tr></table></div></div>
+      </div>
+    `;
+    document.getElementById('adminContent').innerHTML = content;
+  }
+
+  // ========== ANNOUNCEMENT CRUD ==========
+  function addAnnouncement() {
+    document.getElementById('addAnnouncementForm').reset();
+    document.getElementById('announcementPriority').value = 'medium';
+    const nextWeek = new Date(); nextWeek.setDate(nextWeek.getDate() + 7);
+    document.getElementById('announcementValidUntil').value = nextWeek.toISOString().split('T')[0];
+    new bootstrap.Modal(document.getElementById('addAnnouncementModal')).show();
+  }
+  function saveAnnouncement() {
+    const title = document.getElementById('announcementTitle').value;
+    const content = document.getElementById('announcementContent').value;
+    if (!title || !content) return showToast('Please fill all required fields', 'error');
+    const id = 'ANN' + (sampleData.announcements.length + 1).toString().padStart(3, '0');
+    const today = new Date().toISOString().split('T')[0];
+    sampleData.announcements.unshift({
+      id, title, content,
+      category: document.getElementById('announcementCategory').value,
+      priority: document.getElementById('announcementPriority').value,
+      date: today,
+      validUntil: document.getElementById('announcementValidUntil').value || today
+    });
+    bootstrap.Modal.getInstance(document.getElementById('addAnnouncementModal')).hide();
+    loadSection('admin', 'announcements');
+    showToast('Announcement added', 'success');
+  }
+  function editAnnouncement(id) {
+    const a = sampleData.announcements.find(a => a.id === id);
+    if (!a) return;
+    document.getElementById('announcementTitle').value = a.title;
+    document.getElementById('announcementContent').value = a.content;
+    document.getElementById('announcementCategory').value = a.category;
+    document.getElementById('announcementPriority').value = a.priority;
+    document.getElementById('announcementValidUntil').value = a.validUntil;
+    const modal = new bootstrap.Modal(document.getElementById('addAnnouncementModal'));
+    document.querySelector('#addAnnouncementModal .modal-title').innerHTML = '<i class="fa-regular fa-pen-to-square me-2"></i>Edit Announcement';
+    document.querySelector('#addAnnouncementModal .modal-footer .btn-primary').innerHTML = 'Update';
+    document.querySelector('#addAnnouncementModal .modal-footer .btn-primary').setAttribute('onclick', `updateAnnouncement('${id}')`);
+    modal.show();
+  }
+  function updateAnnouncement(id) {
+    const title = document.getElementById('announcementTitle').value;
+    const content = document.getElementById('announcementContent').value;
+    if (!title || !content) return showToast('Please fill all fields', 'error');
+    const idx = sampleData.announcements.findIndex(a => a.id === id);
+    if (idx !== -1) {
+      sampleData.announcements[idx] = { ...sampleData.announcements[idx],
+        title, content,
+        category: document.getElementById('announcementCategory').value,
+        priority: document.getElementById('announcementPriority').value,
+        validUntil: document.getElementById('announcementValidUntil').value
+      };
+    }
+    bootstrap.Modal.getInstance(document.getElementById('addAnnouncementModal')).hide();
+    document.querySelector('#addAnnouncementModal .modal-title').innerHTML = '<i class="fa-regular fa-bullhorn me-2"></i>New Announcement';
+    document.querySelector('#addAnnouncementModal .modal-footer .btn-primary').innerHTML = 'Post';
+    document.querySelector('#addAnnouncementModal .modal-footer .btn-primary').setAttribute('onclick', 'saveAnnouncement()');
+    loadSection('admin', 'announcements');
+    showToast('Announcement updated', 'success');
+  }
+  function deleteAnnouncement(id) {
+    if (confirm('Delete this announcement?')) {
+      const idx = sampleData.announcements.findIndex(a => a.id === id);
+      if (idx !== -1) sampleData.announcements.splice(idx, 1);
+      loadSection('admin', 'announcements');
+      showToast('Announcement deleted', 'success');
+    }
+  }
+  function viewAnnouncement(id) {
+    const a = sampleData.announcements.find(a => a.id === id);
+    if (!a) return;
+    const content = `
+      <div class="certificate-paper">
+        <div class="d-flex justify-content-between align-items-center mb-4"><h4>${a.title}</h4><button class="btn btn-outline-glow" onclick="loadSection('admin', 'announcements')"><i class="fa-regular fa-arrow-left me-2"></i>Back</button></div>
+        <div class="mb-3"><span class="badge bg-info me-2">${a.category}</span><span class="badge bg-${a.priority === 'high' ? 'danger' : a.priority === 'medium' ? 'warning' : 'secondary'}">${a.priority}</span></div>
+        <p class="lead">${a.content}</p><hr><div class="text-muted"><p>Published: ${a.date} | Valid until: ${a.validUntil}</p></div>
+      </div>
+    `;
+    document.getElementById('adminContent').innerHTML = content;
+  }
+
+  // ========== FEE PAYMENT ==========
+  function openFeePayment() {
+    document.getElementById('feeType').value = 'tuition';
+    document.getElementById('feeAmount').value = '5000';
+    document.getElementById('paymentDetails').value = '';
+    document.getElementById('totalDue').textContent = '$5,000';
+    document.getElementById('paymentDetails').classList.remove('is-invalid');
+    document.getElementById('paymentDetailsHint').innerHTML = '<i class="fa-regular fa-circle-info me-1"></i>Enter exactly 10 digits (numbers only)';
+    new bootstrap.Modal(document.getElementById('feePaymentModal')).show();
+  }
+  function calculateTotalFee() {
+    const feeType = document.getElementById('feeType').value;
+    const fees = { tuition: 5000, hostel: 2000, library: 300, sports: 200, exam: 150 };
+    document.getElementById('feeAmount').value = fees[feeType];
+    document.getElementById('totalDue').textContent = '$' + fees[feeType];
+  }
+  function validatePaymentDetails(details) {
+    const onlyNumbers = /^\d+$/.test(details);
+    const exactLength = details.length === 10;
+    return { valid: onlyNumbers && exactLength, onlyNumbers, exactLength };
+  }
+  function processPayment() {
+    const details = document.getElementById('paymentDetails').value;
+    const paymentValidation = validatePaymentDetails(details);
+    if (!details) {
+      showToast('Please enter payment details', 'error');
+      document.getElementById('paymentDetails').classList.add('is-invalid');
+      document.getElementById('paymentDetailsHint').innerHTML = '<i class="fa-regular fa-circle-exclamation text-danger me-1"></i>Payment details required';
+      return;
+    }
+    if (!paymentValidation.onlyNumbers) {
+      showToast('Only numbers allowed', 'error');
+      document.getElementById('paymentDetails').classList.add('is-invalid');
+      document.getElementById('paymentDetailsHint').innerHTML = '<i class="fa-regular fa-circle-exclamation text-danger me-1"></i>Only numbers allowed';
+      return;
+    }
+    if (!paymentValidation.exactLength) {
+      showToast('Must be exactly 10 digits', 'error');
+      document.getElementById('paymentDetails').classList.add('is-invalid');
+      document.getElementById('paymentDetailsHint').innerHTML = '<i class="fa-regular fa-circle-exclamation text-danger me-1"></i>Exactly 10 digits required';
+      return;
+    }
+    const receiptNo = 'REC' + Date.now().toString().slice(-8);
+    const paymentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    const amount = document.getElementById('feeAmount').value;
+    const method = document.getElementById('paymentMethod').value;
+    const feeType = document.getElementById('feeType').value;
+    if (!currentUser.payments) currentUser.payments = [];
+    currentUser.payments.unshift({ receiptNo, type: feeType.charAt(0).toUpperCase() + feeType.slice(1) + ' Fee', amount, method, date: paymentDate, status: 'Paid' });
+    const feeIndex = currentUser.fees.findIndex(f => f.type === feeType);
+    if (feeIndex !== -1) currentUser.fees[feeIndex].status = 'Paid';
+    bootstrap.Modal.getInstance(document.getElementById('feePaymentModal')).hide();
+    showReceipt(receiptNo, feeType, amount, method, paymentDate);
+    showToast(`Payment successful! Receipt: ${receiptNo}`, 'success');
+  }
+  function showReceipt(receiptNo, feeType, amount, method, date) {
+    const feeTypeDisplay = feeType.charAt(0).toUpperCase() + feeType.slice(1) + ' Fee';
+    const receiptContent = `
+      <div class="receipt-paper animate__animated animate__zoomIn">
+        <div class="watermark">RECEIPT</div>
+        <div class="text-center mb-4 position-relative" style="z-index:1"><div class="small-logo mx-auto mb-3"><i class="fas fa-university"></i></div><h2 class="fw-bold">LJ University</h2><p class="text-muted">Official Payment Receipt</p><div class="bg-primary text-white d-inline-block px-4 py-2 rounded-pill mt-2"><strong>${receiptNo}</strong></div></div>
+        <div class="row position-relative" style="z-index:1"><div class="col-md-12"><table class="table table-borderless"><tr><td width="40%"><strong>Student Name:</strong></td><td>${currentUser.name}</td></tr><tr><td><strong>Student ID:</strong></td><td>${currentUser.studentId || 'N/A'}</td></tr><tr><td><strong>Course:</strong></td><td>${currentUser.course || 'N/A'}</td></tr><tr><td><strong>Fee Type:</strong></td><td>${feeTypeDisplay}</td></tr><tr><td><strong>Amount Paid:</strong></td><td><span class="fw-bold text-success">$${amount}</span></td></tr><tr><td><strong>Payment Method:</strong></td><td>${method.replace('_', ' ').toUpperCase()}</td></tr><tr><td><strong>Payment Date:</strong></td><td>${date}</td></tr><tr><td><strong>Transaction Status:</strong></td><td><span class="badge bg-success">COMPLETED</span></td></tr></table></div></div>
+        <div class="row mt-4 position-relative" style="z-index:1"><div class="col-6 text-center"><div class="border-top pt-2" style="width:200px; margin:0 auto"><strong>Authorized Signatory</strong></div></div><div class="col-6 text-center"><div class="border-top pt-2" style="width:200px; margin:0 auto"><strong>University Stamp</strong></div></div></div>
+        <div class="alert alert-light mt-4 text-center small position-relative" style="z-index:1"><i class="fa-regular fa-circle-check text-success me-1"></i>Computer generated receipt. Valid without signature.</div>
+      </div>
+      <div class="text-center mt-4 no-print"><button class="btn btn-primary rounded-pill me-2" onclick="window.print()"><i class="fa-regular fa-print me-2"></i>Print Receipt</button><button class="btn btn-outline-glow" onclick="loadSection('student', 'fees')"><i class="fa-regular fa-arrow-left me-2"></i>Back to Fees</button></div>
+    `;
+    document.getElementById('studentContent').innerHTML = receiptContent;
+  }
+
+  // ========== BONAFIDE ==========
+  function openBonafide() {
+    document.getElementById('bonafidePurpose').value = '';
+    document.getElementById('bonafideDetails').value = '';
+    new bootstrap.Modal(document.getElementById('bonafideModal')).show();
+  }
+  function generateBonafide() {
+    const purpose = document.getElementById('bonafidePurpose').value;
+    if (!purpose) return showToast('Please select purpose', 'error');
+    const details = document.getElementById('bonafideDetails').value;
+    const certId = 'BON' + Date.now().toString().slice(-8);
+    const issueDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    const validDate = new Date(); validDate.setMonth(validDate.getMonth() + 6);
+    const validUntil = validDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    if (!currentUser.documents) currentUser.documents = [];
+    const docId = 'DOC' + Date.now().toString().slice(-8);
+    currentUser.documents.unshift({ id: docId, name: `Bonafide Certificate - ${purpose}`, type: 'Bonafide', date: issueDate, status: 'Generated' });
+    bootstrap.Modal.getInstance(document.getElementById('bonafideModal')).hide();
+    const certificateContent = `
+      <div class="receipt-paper animate__animated animate__zoomIn">
+        <div class="watermark">BONAFIDE</div>
+        <div class="text-center mb-4 position-relative" style="z-index:1"><div class="small-logo mx-auto mb-3"><i class="fas fa-university"></i></div><h2 class="fw-bold">LJ University</h2><h4 class="text-primary">BONAFIDE CERTIFICATE</h4><div class="bg-info text-white d-inline-block px-4 py-2 rounded-pill mt-2"><strong>${certId}</strong></div></div>
+        <div class="position-relative" style="z-index:1"><p class="text-center mb-4">Date: ${issueDate}</p><p class="mb-4">This is to certify that <strong>${currentUser.name}</strong> (Student ID: <strong>${currentUser.studentId || 'N/A'}</strong>) is a bonafide student of <strong>LJ University</strong>. He/She is currently pursuing <strong>${currentUser.course || 'Computer Science'}</strong> in the <strong>${currentUser.year || '3rd Year'}</strong>.</p><p class="mb-4"><strong>Purpose:</strong> ${purpose}</p>${details ? `<p class="mb-4"><strong>Additional Details:</strong> ${details}</p>` : ''}<p class="mb-4">This certificate is issued on student's request for ${purpose.toLowerCase()} purpose.</p><p class="mb-4"><strong>Validity:</strong> This certificate is valid until <strong>${validUntil}</strong>.</p></div>
+        <div class="row mt-5 position-relative" style="z-index:1"><div class="col-6 text-center"><div class="border-top pt-2" style="width:200px; margin:0 auto"><strong>Registrar</strong></div></div><div class="col-6 text-center"><div class="border-top pt-2" style="width:200px; margin:0 auto"><strong>Dean of Students</strong></div></div></div>
+        <div class="alert alert-light mt-4 text-center small position-relative" style="z-index:1"><i class="fa-regular fa-circle-check text-success me-1"></i>Computer generated certificate - valid without signature</div>
+      </div>
+      <div class="text-center mt-4 no-print"><button class="btn btn-primary rounded-pill me-2" onclick="window.print()"><i class="fa-regular fa-print me-2"></i>Print Certificate</button><button class="btn btn-outline-glow" onclick="loadSection('student', 'documents')"><i class="fa-regular fa-arrow-left me-2"></i>Back to Documents</button></div>
+    `;
+    document.getElementById('studentContent').innerHTML = certificateContent;
+    showToast('Bonafide certificate generated!', 'success');
+  }
+
+  // ========== AFFIDAVIT ==========
+  function openAffidavit() {
+    document.getElementById('affidavitType').value = '';
+    document.getElementById('affidavitDetails').value = '';
+    document.getElementById('notaryRequired').checked = false;
+    new bootstrap.Modal(document.getElementById('affidavitModal')).show();
+  }
+  function generateAffidavit() {
+    const type = document.getElementById('affidavitType').value;
+    if (!type) return showToast('Please select affidavit type', 'error');
+    const details = document.getElementById('affidavitDetails').value;
+    const notaryRequired = document.getElementById('notaryRequired').checked;
+    const affidavitId = 'AFF' + Date.now().toString().slice(-8);
+    const issueDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    if (!currentUser.documents) currentUser.documents = [];
+    const docId = 'DOC' + Date.now().toString().slice(-8);
+    currentUser.documents.unshift({ id: docId, name: `Affidavit - ${type}`, type: 'Affidavit', date: issueDate, status: notaryRequired ? 'Pending Notary' : 'Generated' });
+    bootstrap.Modal.getInstance(document.getElementById('affidavitModal')).hide();
+    const notarySection = notaryRequired ? '<div class="alert alert-warning mt-4"><i class="fa-regular fa-stamp me-2"></i><strong>Notary Required:</strong> Please visit admin office with original documents.</div>' : '';
+    const affidavitContent = `
+      <div class="receipt-paper animate__animated animate__zoomIn">
+        <div class="watermark">AFFIDAVIT</div>
+        <div class="text-center mb-4 position-relative" style="z-index:1"><div class="small-logo mx-auto mb-3"><i class="fas fa-university"></i></div><h2 class="fw-bold">AFFIDAVIT</h2><h5 class="text-muted">(Declaration Under Oath)</h5><div class="bg-warning text-white d-inline-block px-4 py-2 rounded-pill mt-2"><strong>${affidavitId}</strong></div></div>
+        <div class="position-relative" style="z-index:1"><p class="text-center mb-4">Date: ${issueDate}</p><p class="mb-4">I, <strong>${currentUser.name}</strong>, son/daughter of <strong>Mr. Robert Doe</strong>, residing at <strong>123 University Road, Tech City</strong>, currently studying at <strong>LJ University</strong> as a student of <strong>${currentUser.course || 'Computer Science'}</strong> (Student ID: <strong>${currentUser.studentId || 'N/A'}</strong>), do hereby solemnly affirm and declare as under:</p><ol class="mb-4"><li class="mb-2">That I am making this affidavit for the purpose of <strong>${type}</strong>.</li>${details ? `<li class="mb-2">That ${details}</li>` : ''}<li class="mb-2">That all the information provided herein is true and correct to the best of my knowledge and belief.</li><li class="mb-2">That I understand that any false statement in this affidavit may lead to disciplinary action.</li></ol><p class="mb-4">I solemnly affirm that the contents of this affidavit are true and correct.</p><div class="text-end mt-5"><div class="border-top pt-2" style="width:250px; margin-left:auto"><strong>${currentUser.name}</strong><br><span class="text-muted">(Deponent)</span></div></div>${notarySection}</div>
+        <div class="alert alert-light mt-4 text-center small position-relative" style="z-index:1"><i class="fa-regular fa-circle-info text-info me-1"></i>This affidavit requires signature and verification.</div>
+      </div>
+      <div class="text-center mt-4 no-print"><button class="btn btn-primary rounded-pill me-2" onclick="window.print()"><i class="fa-regular fa-print me-2"></i>Print Affidavit</button>${notaryRequired ? '<button class="btn btn-warning rounded-pill me-2" onclick="showToast(\'Notary request sent to admin\', \'success\')"><i class="fa-regular fa-stamp me-2"></i>Request Notary</button>' : ''}<button class="btn btn-outline-glow" onclick="loadSection(\'student\', \'documents\')"><i class="fa-regular fa-arrow-left me-2"></i>Back to Documents</button></div>
+    `;
+    document.getElementById('studentContent').innerHTML = affidavitContent;
+    showToast('Affidavit generated!', 'success');
+  }
+
+  // ========== DOCUMENT VIEW/PRINT ==========
+  function viewDocument(docId) {
+    const doc = currentUser.documents?.find(d => d.id === docId);
+    if (doc) showToast(`Viewing: ${doc.name}`, 'info');
+  }
+  function printDocument() { window.print(); }
+
+  // ========== LOGOUT ==========
+  function logout() {
+    document.getElementById('loginEmail').value = 'admin@uni.edu';
+    document.getElementById('loginPassword').value = 'Admin@123';
+    document.querySelectorAll('.dashboard').forEach(d => d.style.display = 'none');
+    document.getElementById('loginPage').style.display = 'flex';
+    currentUser = null;
+    showLoginForm();
+    document.getElementById('loginEmail').classList.remove('is-invalid');
+    document.getElementById('emailValidationHint').innerHTML = '<i class="fa-regular fa-circle-info me-1"></i>Email must contain only letters & numbers before @, and a valid domain after.';
+    updatePasswordRequirements(document.getElementById('loginPassword').value);
+    showToast('Logged out successfully', 'info');
+  }
+
+  // ========== REAL-TIME VALIDATION ==========
+  function updatePasswordRequirements(password) {
+    const v = validatePassword(password);
+    ['length','numbers','special'].forEach(req => {
+      const el = document.getElementById('req' + req.charAt(0).toUpperCase() + req.slice(1));
+      el.innerHTML = `<i class="fa-regular fa-circle-${v[req] ? 'check text-success' : 'xmark'} me-1"></i>${req === 'length' ? '8-15 characters' : req === 'numbers' ? 'At least 2 numbers' : 'At least 1 special character'}`;
+      el.className = v[req] ? 'requirement-met' : 'requirement-not-met';
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const pwd = document.getElementById('loginPassword');
+    if (pwd) pwd.addEventListener('input', e => updatePasswordRequirements(e.target.value));
+    updatePasswordRequirements(pwd?.value || '');
+
+    const email = document.getElementById('loginEmail');
+    if (email) email.addEventListener('input', e => {
+      if (e.target.value && !validateEmail(e.target.value)) {
+        e.target.classList.add('is-invalid');
+        document.getElementById('emailValidationHint').innerHTML = '<i class="fa-regular fa-circle-exclamation text-danger me-1"></i>Invalid email format';
+      } else {
+        e.target.classList.remove('is-invalid');
+        document.getElementById('emailValidationHint').innerHTML = '<i class="fa-regular fa-circle-check text-success me-1"></i>Valid email format';
+      }
+    });
+
+    const regEmail = document.getElementById('regEmail');
+    if (regEmail) regEmail.addEventListener('input', e => {
+      if (e.target.value && !validateEmail(e.target.value)) {
+        e.target.classList.add('is-invalid');
+        document.getElementById('regEmailHint').innerHTML = '<i class="fa-regular fa-circle-exclamation text-danger me-1"></i>Invalid email format';
+      } else {
+        e.target.classList.remove('is-invalid');
+        document.getElementById('regEmailHint').innerHTML = '<i class="fa-regular fa-circle-check text-success me-1"></i>Valid email format';
+      }
+    });
+
+    const regRole = document.getElementById('regRole');
+    if (regRole) regRole.addEventListener('change', e => {
+      document.getElementById('studentFields').style.display = e.target.value === 'student' ? 'block' : 'none';
+      document.getElementById('facultyFields').style.display = e.target.value === 'faculty' ? 'block' : 'none';
+    });
+  });
+</script>
+</body>
+</html>
